@@ -24,7 +24,7 @@ namespace Assets.Scripts
             }
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             transform.position = Vector3.Lerp(transform.position, target.position, damping * Time.deltaTime);
 

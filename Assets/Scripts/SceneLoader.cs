@@ -9,11 +9,7 @@ namespace Assets.Scripts
         public enum SceneEnum
         {
             None = -1,
-            Start,
-            StartStory,
             Game,
-            Lose,
-            EndStory
         }
 
         public float speed = 0.5f;
@@ -50,11 +46,7 @@ namespace Assets.Scripts
 
         #region Scene Loaders
 
-        public void LoadSceneStart() { LoadScene(SceneEnum.Start); }
-        public void LoadSceneStartStory() { LoadScene(SceneEnum.StartStory); }
         public void LoadSceneGame() { LoadScene(SceneEnum.Game); }
-        public void LoadSceneLose() { LoadScene(SceneEnum.Lose); }
-        public void LoadSceneEndStory() { LoadScene(SceneEnum.EndStory); }
 
         #endregion
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterController2D : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 	public LayerMask groundMask;
 	public float moveSpeed = 400f;
@@ -42,7 +42,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private bool IsGrounded()
     {
-		return Physics2D.BoxCast(Collider().bounds.center, new Vector2(Collider().bounds.extents.x, Collider().bounds.extents.y), 0, Vector2.down);
+		return Physics2D.BoxCast(Collider().bounds.center, new Vector2(Collider().bounds.extents.x, 0.1f), 0, Vector2.down, Collider().bounds.extents.y, groundMask);
 	}
 
 	private void Flip()
@@ -73,9 +73,9 @@ public class CharacterController2D : MonoBehaviour
 		inputDash = Input.GetKey(KeyCode.LeftShift);
 	}
 
-	// Called on fixed update by the input manager
 	public void FixedUpdate()
 	{
+
 		#region Grounded Update
 		groundedInputLast -= Time.deltaTime;
 		if (IsGrounded())

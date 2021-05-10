@@ -10,6 +10,7 @@ public class CutscenePlayer : MonoBehaviour
     public List<GameObject> scenes = new List<GameObject>();
     public GameObject textArea;
     public float textSpeed = 0.1f; //char per sec
+    public float buttonMulti = 3f;
     public float pauseLength = 1f; // length of pause
     public float transSpeed = 0.5f; //opacity per sec
 
@@ -43,7 +44,14 @@ public class CutscenePlayer : MonoBehaviour
         }
         else if (!textDone)
         {
-            textTime += Time.deltaTime;
+            if (Input.GetKey(KeyCode.Space))
+            {
+                textTime += Time.deltaTime * buttonMulti;
+            }
+            else
+            {
+                textTime += Time.deltaTime;
+            }
 
             var text = current.GetComponent<UnityEngine.UI.Text>().text;
             var len = Math.Min(Mathf.FloorToInt(textTime * textSpeed), text.Length);
