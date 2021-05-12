@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Assets.Managers;
 
 namespace Assets.Scripts
 {
@@ -27,6 +28,7 @@ namespace Assets.Scripts
 		private float jumpTimeLast = 0f;
 		private float dashTimeLast = 0f;
 
+		private int inputLevel = 0;
 		private float inputMove = 0f;
 		private bool inputJump = false;
 		private bool inputDash = false;
@@ -70,9 +72,9 @@ namespace Assets.Scripts
 
 		public void Update()
 		{
-			inputMove = Input.GetAxisRaw("Horizontal");
-			inputJump = Input.GetKey(KeyCode.Space);
-			inputDash = Input.GetKey(KeyCode.LeftShift);
+			inputMove = InputManager.GetHorzAxis(inputLevel);
+			inputJump = InputManager.GetKey(KeyCode.Space, inputLevel);
+			inputDash = InputManager.GetKey(KeyCode.LeftShift, inputLevel);
 		}
 
 		public void FixedUpdate()

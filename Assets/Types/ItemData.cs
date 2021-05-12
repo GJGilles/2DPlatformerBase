@@ -1,17 +1,20 @@
-﻿using System.Collections;
+﻿using System;
 using UnityEngine;
 
-namespace Assets.Defs
+namespace Assets.Types
 {
     public enum ItemEnum
     {
         Default
     }
 
+    [Serializable]
     public class ItemData
     {
+        public ItemEnum id;
         public string name = "";
         public int stack = 0;
+        public Sprite sprite;
 
        public ItemData() { }
        public ItemData(string name, int stack) 

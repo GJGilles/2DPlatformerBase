@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Assets.Managers;
 using TMPro;
 
 namespace Assets.Scripts
@@ -23,6 +24,8 @@ namespace Assets.Scripts
         private float textTime = 0f;
         private float pauseTime = 0f;
         private float transTime = 0f;
+
+        private int inputLevel = 1;
 
         public UnityEvent OnDone;
 
@@ -46,7 +49,7 @@ namespace Assets.Scripts
             }
             else if (!textDone)
             {
-                if (Input.GetKey(KeyCode.Space))
+                if (InputManager.GetKey(KeyCode.Space, inputLevel))
                 {
                     textTime += Time.deltaTime * buttonMulti;
                 }

@@ -2,7 +2,8 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Defs;
+using Assets.Types;
+using Assets.Managers;
 
 namespace Assets.Scripts
 {
@@ -14,39 +15,23 @@ namespace Assets.Scripts
         public float forceDamping = 10f;
         public LayerMask itemMask;
         public int itemSlots = 8;
+        public GameObject inventoryObj;
 
-        private List<Tuple<ItemEnum, int>> inventory = new List<Tuple<ItemEnum, int>>();
+        private int inputLevel = 0;
 
         private Collider2D Collider() { return GetComponent<Collider2D>(); }
 
-        private bool CanAddItem(ItemEnum item)
-        {
-            ItemData data = ItemDefs.GetItemData(item);
-            return inventory.Count < itemSlots || inventory.Where(t => (t.Item1 == item && t.Item2 < data.stack)).Count() > 0;
-        }
-
-        private bool TryAddItem(ItemEnum item)
-        {
-            ItemData data = ItemDefs.GetItemData(item);
-            var slots = inventory.Where(t => (t.Item1 == item && t.Item2 < data.stack));
-            if (slots.Count() > 0)
-            {
-                var idx = inventory.IndexOf(slots.First());
-                inventory[idx] = new Tuple<ItemEnum, int>(inventory[idx].Item1, inventory[idx].Item2 + 1);
-                return true;
-            }
-
-            if (inventory.Count < itemSlots)
-            {
-                inventory.Add(new Tuple<ItemEnum, int>(item, 1));
-            }
-
-            return false;
-        }
-
         private void Start()
         {
-            ItemDefs.LoadDefs();
+            InventoryManager.SetSize(itemSlots);
+        }
+
+        private void Update()
+        {
+            if (InputManager.GetKey(KeyCode.I, inputLevel))
+            {
+                Instantiate(inventoryObj);
+            }
         }
 
         private void FixedUpdate()
@@ -57,7 +42,7 @@ namespace Assets.Scripts
                 ItemController holder;
                 if (item.gameObject.TryGetComponent(out holder))
                 {
-                    if (TryAddItem(holder.item))
+                    if (InventoryManager.TryAddItem(holder.item))
                         Destroy(item.gameObject);
                 }
             }
@@ -68,7 +53,7 @@ namespace Assets.Scripts
                 ItemController holder;
                 if (item.gameObject.TryGetComponent(out holder))
                 {
-                    if (!CanAddItem(holder.item))
+                    if (!InventoryManager.CanAddItem(holder.item))
                         continue;
 
                     Rigidbody2D rb = item.gameObject.GetComponent<Rigidbody2D>();
