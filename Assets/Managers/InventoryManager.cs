@@ -11,6 +11,16 @@ namespace Assets.Managers
         private static int size = 0;
         private static List<Tuple<ItemEnum, int>> inventory = new List<Tuple<ItemEnum, int>>();
 
+        public static List<ItemData> GetItems()
+        {
+            List<ItemData> items = new List<ItemData>();
+            foreach (var val in inventory)
+            {
+                items.Add(ItemManager.GetItemData(val.Item1));
+            }
+            return items;
+        }
+
         public static List<Tuple<ItemEnum, int>> SetSize(int s)
         {
             if (s >= size)
