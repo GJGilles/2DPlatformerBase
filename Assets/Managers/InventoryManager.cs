@@ -9,16 +9,16 @@ namespace Assets.Managers
     public static class InventoryManager
     {
         private static int size = 0;
-        private static List<Tuple<ItemEnum, int>> inventory = new List<Tuple<ItemEnum, int>>();
+        private static List<InventoryItem> inventory = new List<InventoryItem>();
 
-        public static List<ItemData> GetItems()
+        public static List<InventoryItem> GetItems()
         {
-            List<ItemData> items = new List<ItemData>();
-            foreach (var val in inventory)
-            {
-                items.Add(ItemManager.GetItemData(val.Item1));
-            }
-            return items;
+            return inventory;
+        }
+
+        public static int GetSize()
+        {
+            return size;
         }
 
         public static List<Tuple<ItemEnum, int>> SetSize(int s)
@@ -34,23 +34,23 @@ namespace Assets.Managers
         public static bool CanAddItem(ItemEnum item)
         {
             ItemData data = ItemManager.GetItemData(item);
-            return inventory.Count < size || inventory.Where(t => (t.Item1 == item && t.Item2 < data.stack)).Count() > 0;
+            return inventory.Count < size || inventory.Where(t => (t.id == item && t.number < data.stack)).Count() > 0;
         }
 
         public static bool TryAddItem(ItemEnum item)
         {
             ItemData data = ItemManager.GetItemData(item);
-            var slots = inventory.Where(t => (t.Item1 == item && t.Item2 < data.stack));
+            var slots = inventory.Where(t => (t.id == item && t.number < data.stack));
             if (slots.Count() > 0)
             {
                 var idx = inventory.IndexOf(slots.First());
-                inventory[idx] = new Tuple<ItemEnum, int>(inventory[idx].Item1, inventory[idx].Item2 + 1);
+                inventory[idx].number += 1;
                 return true;
             }
 
             if (inventory.Count < size)
             {
-                inventory.Add(new Tuple<ItemEnum, int>(item, 1));
+                inventory.Add(new InventoryItem() { id = item, number = 0, position = Enumerable.Range(0, size).Where(i => !inventory.Select(t => t.position).Contains(i)).Min() });
             }
 
             return false;

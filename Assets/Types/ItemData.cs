@@ -5,6 +5,7 @@ namespace Assets.Types
 {
     public enum ItemEnum
     {
+        None = -1,
         Default
     }
 
