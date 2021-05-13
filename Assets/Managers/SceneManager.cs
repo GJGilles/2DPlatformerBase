@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts
 {
-    public class SceneLoader: MonoBehaviour
+    public class SceneManager: MonoBehaviour
     {
         public enum SceneEnum
         {

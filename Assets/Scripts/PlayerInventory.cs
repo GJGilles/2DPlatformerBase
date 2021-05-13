@@ -15,6 +15,7 @@ namespace Assets.Scripts
         public float forceDamping = 10f;
         public LayerMask itemMask;
         public int itemSlots = 8;
+        public GameObject screenObj;
         public GameObject inventoryObj;
 
         private int inputLevel = 0;
@@ -28,9 +29,9 @@ namespace Assets.Scripts
 
         private void Update()
         {
-            if (InputManager.GetKey(KeyCode.I, inputLevel))
+            if (InputManager.GetKeyDown(KeyCode.I, inputLevel))
             {
-                Instantiate(inventoryObj);
+                Instantiate(inventoryObj, screenObj.transform);
             }
         }
 

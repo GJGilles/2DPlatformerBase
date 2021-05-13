@@ -18,6 +18,16 @@ namespace Assets.Managers
                 return false;
         }
 
+        public static bool GetKeyDown(KeyCode key, int level)
+        {
+            if (level <= keyBlockLevel)
+            {
+                return Input.GetKeyDown(key);
+            }
+            else
+                return false;
+        }
+
         public static float GetHorzAxis(int level)
         {
             if (level <= keyBlockLevel)
