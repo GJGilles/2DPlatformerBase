@@ -16,7 +16,10 @@ namespace Assets.Scripts
             if (data != null && data.sprite != null)
             {
                 var inst = Instantiate(slotItem, transform);
-                inst.GetComponent<SpriteRenderer>().sprite = data.sprite;
+                var img = inst.GetComponent<UnityEngine.UI.Image>();
+                img.sprite = data.sprite;
+
+                inst.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.number.ToString();
             }
         }
     }

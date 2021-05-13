@@ -10,7 +10,7 @@ namespace Assets.Managers
 
         public static bool GetKey(KeyCode key, int level)
         {
-            if (level <= keyBlockLevel)
+            if (level >= keyBlockLevel)
             {
                 return Input.GetKey(key);
             }
@@ -20,7 +20,7 @@ namespace Assets.Managers
 
         public static bool GetKeyDown(KeyCode key, int level)
         {
-            if (level <= keyBlockLevel)
+            if (level >= keyBlockLevel)
             {
                 return Input.GetKeyDown(key);
             }
@@ -30,7 +30,7 @@ namespace Assets.Managers
 
         public static float GetHorzAxis(int level)
         {
-            if (level <= keyBlockLevel)
+            if (level >= keyBlockLevel)
             {
                 return Input.GetAxisRaw("Horizontal");
             }
@@ -44,6 +44,15 @@ namespace Assets.Managers
                 return false;
 
             keyBlockLevel = level;
+            return true;
+        }
+
+        public static bool UnblockKeys(int level)
+        {
+            if (level != keyBlockLevel)
+                return false;
+
+            keyBlockLevel--;
             return true;
         }
     }
