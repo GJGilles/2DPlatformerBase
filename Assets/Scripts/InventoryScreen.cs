@@ -6,11 +6,29 @@ namespace Assets.Scripts
 {
     public class InventoryScreen : MonoBehaviour
     {
+        public GameObject slotObj;
+        public Vector2 slotOrigin;
+        public int width = 8;
+
         private int inputLevel = 1;
 
         public void Start()
         {
             InputManager.BlockKeys(inputLevel);
+
+            int size = InventoryManager.GetSize();
+            int idx = 0;
+            while (idx < size)
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    var rect = Instantiate(slotObj, transform).GetComponent<RectTransform>();
+                    rect.anchoredPosition = slotOrigin +  new Vector2(rect.rect.width * i, -rect.rect.height * (idx / width));
+                    idx++;
+                    if (idx >= size)
+                        break;
+                }
+            }
 
             var items = InventoryManager.GetItems();
             for (int i = 0; i < items.Count; i++)

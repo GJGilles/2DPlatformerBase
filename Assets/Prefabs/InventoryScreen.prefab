@@ -164,5 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758c082506a4a3648815310cf1e67143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slot: {fileID: 4282001824897871009, guid: 91dff1c352468a54fbc7f0e6bd4120cd, type: 3}
+  slotObj: {fileID: 5247737939522837848, guid: e3b7e1ef9355ecb44ab5d4964efda1c2, type: 3}
+  slotOrigin: {x: -320, y: 70}
   width: 4

@@ -2035,7 +2035,7 @@ MonoBehaviour:
     m_Bits: 4096
   itemSlots: 8
   screenObj: {fileID: 1549517212}
-  inventoryObj: {fileID: 4197138434900984296, guid: 2347a6a1e9471004c88ddada3f68a756, type: 3}
+  inventoryObj: {fileID: 905935124347138627, guid: 67c079cc8c394a14c8e5c1395ade9bcf, type: 3}
 --- !u!70 &1699666644
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
